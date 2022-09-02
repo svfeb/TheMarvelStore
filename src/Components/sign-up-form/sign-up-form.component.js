@@ -3,8 +3,9 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from "../../utils/firebase/firebase.utils";
-import FormInput from "../form-input/for-input.component";
-import "./button.styles.scss";
+import FormInput from "../form-input/form-input.component";
+import "./sign-up-form.style.scss";
+import Button from "../button/button.component";
 
 const defaultFormField = {
   displayName: "",
@@ -24,7 +25,7 @@ function SignUpFrom() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Email or Password not match");
+      alert("Password not match");
       return;
     }
 
@@ -51,8 +52,9 @@ function SignUpFrom() {
   };
 
   return (
-    <div className="button-container">
-      <h1>Sign up with your email and password</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Name"
@@ -89,7 +91,7 @@ function SignUpFrom() {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <button type="submit">Sign Up</button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
