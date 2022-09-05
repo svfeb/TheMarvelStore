@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import { UserContext } from "../../context/user.context";
+
 import FormInput from "../form-input/form-input.component";
 import "./sign-up-form.style.scss";
 import Button from "../button/button.component";
@@ -17,6 +19,8 @@ const defaultFormField = {
 function SignUpFrom() {
   const [formFields, setFormFields] = useState(defaultFormField);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormField);
@@ -34,6 +38,7 @@ function SignUpFrom() {
         email,
         password
       );
+      setCurrentUser(user);
 
       await createUserDocFromAuth(user, { displayName });
       resetFormFields();
